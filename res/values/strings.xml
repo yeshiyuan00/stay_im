@@ -1,5 +1,8 @@
 <resources>
 
     <string name="app_name">stay4it_im</string>
+    <string name="mHomeProfileLabel">Profile</string>
+    <string name="mHomeContactLabel">Contact</string>
+    <string name="mHomeConversationLabel">Conversation</string>
 
 </resources>
