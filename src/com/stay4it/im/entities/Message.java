@@ -1,12 +1,18 @@
 package com.stay4it.im.entities;
 
+import java.io.Serializable;
+
 
 
 /** 
  * @author Stay  
  * @version create time：Mar 9, 2015 4:37:09 PM 
  */
-public class Message {
+public class Message implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public enum StatusType{ing,done,fail};
 	public enum MessageType{plain,audio,image,location,emo};
 	
