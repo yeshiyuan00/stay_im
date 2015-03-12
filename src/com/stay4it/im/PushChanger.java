@@ -2,6 +2,7 @@ package com.stay4it.im;
 
 import java.util.Observable;
 
+import com.stay4it.im.db.MessageController;
 import com.stay4it.im.entities.Message;
 
 /** 
@@ -18,7 +19,9 @@ public class PushChanger extends Observable {
 	}
 	
 	public void notifyChanged(Message message) {
-		notifyChanged(message);
+		MessageController.addOrUpdate(message);
+		setChanged();
+		notifyObservers(message);
 	}
 	
 	

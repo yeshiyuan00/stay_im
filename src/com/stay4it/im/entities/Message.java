@@ -2,28 +2,44 @@ package com.stay4it.im.entities;
 
 import java.io.Serializable;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 
 
 /** 
  * @author Stay  
  * @version create time：Mar 9, 2015 4:37:09 PM 
  */
+@DatabaseTable(tableName = "message")
 public class Message implements Serializable{
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final String TIMESTAMP = "timestamp";
+	public static final String SENDERID = "senderId";
+	public static final String RECEIVERID = "receiverId";
 	public enum StatusType{ing,done,fail};
 	public enum MessageType{plain,audio,image,location,emo};
-	
+	@DatabaseField(id=true)
 	private String id;
+	@DatabaseField
 	private String senderId;
+	@DatabaseField
 	private String receiverId;
+	@DatabaseField
 	private MessageType type;
+	@DatabaseField
 	private String content;
+	@DatabaseField(dataType=DataType.SERIALIZABLE)
 	private Attachment attachment;
+	@DatabaseField
 	private StatusType status;
+	@DatabaseField
 	private long timestamp;
+	@DatabaseField
 	private boolean isRead;
 	
 	public String getId() {
@@ -73,6 +89,32 @@ public class Message implements Serializable{
 	}
 	public void setStatus(StatusType status) {
 		this.status = status;
+	}
+	public boolean isRead() {
+		return isRead;
+	}
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
+	}
+	public static Message test(String id,String senderId, String receiverId){
+		Message message = new Message();
+		message.setId(id);
+		message.setContent("content:" + id);
+		message.setStatus(StatusType.ing);
+		message.setType(MessageType.plain);
+		message.setTimestamp(System.currentTimeMillis());
+		message.setSenderId(senderId);
+		message.setReceiverId(receiverId);
+		return message;
+	}
+	
+	@Override
+	public String toString() {
+		return senderId + " send "+content+" to " + receiverId +" " + status;
+	}
+	public Conversation copyTo() {
+//		TODO
+		return null;
 	}
 	
 	

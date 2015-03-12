@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.stay4it.im.entities.Message;
+import com.stay4it.im.entities.Message.StatusType;
+import com.stay4it.im.junit.ChatTest;
+import com.stay4it.im.utilities.Trace;
 
 /**
  * @author Stay
@@ -24,16 +27,25 @@ public class PushManager {
 		return mInstance;
 	}
 	
+	public void handlePush(Message message) {
+//		TODO parse content to Message/Notice
+		PushChanger.getInstance().notifyChanged(message);
+	}
+	
 	public void handlePush(String content) {
 //		TODO parse content to Message/Notice
-		Message message = new Message();
+		Message message = Message.test("00001", ChatTest.TARGETID, ChatTest.SELFID);
 		PushChanger.getInstance().notifyChanged(message);
 	}
 	
 	public void sendMessage(Message message){
-		Intent service = new Intent(context, PushService.class);
-		service.putExtra(Constants.KEY_MESSAGE, message);
-		context.startService(service);
+//		Intent service = new Intent(context, PushService.class);
+//		service.putExtra(Constants.KEY_MESSAGE, message);
+//		context.startService(service);
+		message.setStatus(StatusType.ing);
+		PushChanger.getInstance().notifyChanged(message);
+		message.setStatus(StatusType.fail);
+		PushChanger.getInstance().notifyChanged(message);
 	}
 	
 	public void addObserver(PushWatcher watcher){
